@@ -1,4 +1,4 @@
-package misc.FactorialTrailingZero;
+package math.FactorialTrailingZero;
 
 class Solution {
     public int trailingZeroes(int n) {
