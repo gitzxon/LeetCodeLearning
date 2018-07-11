@@ -4,6 +4,18 @@ import java.util.Arrays;
 
 public class Solution {
 
+    public int[] getNextArray(String pattern) {
+        int[] lps = getLps(pattern);
+        int[] next = new int[lps.length];
+        next[0] = -1;
+        System.arraycopy(
+                lps, 0,
+                next, 1,
+                lps.length - 1
+        );
+        return next;
+    }
+
     public int[] getLps(String pattern) {
         if (pattern == null) return null;
         if (pattern.length() == 0) {

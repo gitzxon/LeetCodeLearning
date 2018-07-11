@@ -3,30 +3,43 @@ package string.kmp
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.util.*
 
 class SolutionTest {
 
     @Test
     fun getLps() {
-        assertArrayEquals(
+        test(
                 intArrayOf(0, 0, 0, 0, 0),
-                Solution().getLps("abcbc")
+                "abcbc"
         )
 
-        assertArrayEquals(
+        test(
                 intArrayOf(0, 0, 0, 1, 2, 0),
-                Solution().getLps("abcabd")
+                "abcabd"
         )
 
-        assertArrayEquals(
+        test(
                 intArrayOf(0, 1, 2, 3, 4),
-                Solution().getLps("aaaaa")
+                "aaaaa"
         )
 
-        assertArrayEquals(
+        test(
                 intArrayOf(0,0,1,2,0,1,2),
-                Solution().getLps("ababbab")
+                "ababbab"
         )
+
+
+    }
+
+    fun test(expected: IntArray, pattern: String) {
+        test(expected, Solution().getLps(pattern))
+        val next = Solution().getNextArray(pattern)
+        println(Arrays.toString(next))
+    }
+
+    fun test(expected: IntArray, actual: IntArray) {
+        assertArrayEquals(expected, actual)
 
     }
 }
