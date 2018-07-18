@@ -25,7 +25,7 @@ class SolutionTest {
         )
 
         test(
-                intArrayOf(0,0,1,2,0,1,2),
+                intArrayOf(0, 0, 1, 2, 0, 1, 2),
                 "ababbab"
         )
 
@@ -34,12 +34,16 @@ class SolutionTest {
 
     fun test(expected: IntArray, pattern: String) {
         test(expected, Solution().getLps(pattern))
+        test(expected, Review().getLps(pattern))
+
         val next = Solution().getNextArray(pattern)
         println(Arrays.toString(next))
+
+        test(expected = next, actual = Review().getNextArray(pattern))
     }
 
     fun test(expected: IntArray, actual: IntArray) {
-        assertArrayEquals(expected, actual)
 
+        assertArrayEquals(expected, actual)
     }
 }
