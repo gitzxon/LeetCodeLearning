@@ -2,13 +2,11 @@ package ds.map.LRUCache
 
 import org.junit.Test
 
-import org.junit.Assert.*
-
-class LRUCacheTest {
+class MyLRUCacheTest {
 
     @Test
     fun test() {
-        val lruCache = LRUCache(2)
+        val lruCache = MyLRUCache(2)
         println("lruCache.put(1,1) = ${lruCache.put(1,1)}")
         println("lruCache.put(2,2) = ${lruCache.put(2,2)}")
         println("lruCache.get(1) = ${lruCache.get(1)}")
