@@ -1,6 +1,4 @@
-package array.NextPermutation;
-
-import java.util.Arrays;
+package array.Permutation.NextPermutation;
 
 class Solution {
     public void nextPermutation(int[] nums) {

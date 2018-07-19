@@ -1,4 +1,4 @@
-package array.NextPermutation
+package array.Permutation.NextPermutation
 
 import org.junit.Test
 
