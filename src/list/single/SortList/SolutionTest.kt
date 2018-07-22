@@ -5,7 +5,7 @@ import list.single.toArrayList
 import list.single.toLinkedList
 import org.junit.Test
 
-import org.junit.Assert.*
+import kotlin.test.assertEquals
 
 class SolutionTest {
 

@@ -1,5 +1,7 @@
 package list.single
 
+import list.single.MyLinkedList.MyLinkedList
+
 fun IntArray.toLinkedList(): ListNode? {
     var mockHead = ListNode(0)
     var p = mockHead;
@@ -15,6 +17,16 @@ fun IntArray.toLinkedList(): ListNode? {
 
 fun ListNode.toArrayList(): MutableList<Int> {
     var p:ListNode? = this
+    var arrayList: MutableList<Int> = ArrayList()
+    while (p != null) {
+        arrayList.add(p.`val`)
+        p = p.next
+    }
+    return arrayList
+}
+
+fun MyLinkedList.ListNode?.toArrayList(): MutableList<Int> {
+    var p = this
     var arrayList: MutableList<Int> = ArrayList()
     while (p != null) {
         arrayList.add(p.`val`)
