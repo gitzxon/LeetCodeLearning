@@ -20,23 +20,19 @@ class Solution {
 
         int len = getLength(head);
         exist = new boolean[len];
-        Arrays.stream(G).forEach(value -> exist[value] = true);
+        for (int aG : G) {
+            exist[aG] = true;
+        }
 
         ListNode p = head;
-        boolean found = false;
         int count = 0;
         while (p != null) {
-            if (!found) {
-                if (exist(p.val)) {
-                    found = true;
-                    count += 1;
-                }
-            } else { // found previous
-                if (!exist(p.val)) {
-                    found = false;
-                }
+            if(!exist[p.val]) {
+                p = p.next;
+                continue;
             }
-
+            count++;
+            while(p.next!=null && exist[p.next.val]) p = p.next;
             p = p.next;
         }
         return count;
