@@ -1,6 +1,7 @@
 package list.single
 
 import list.single.MyLinkedList.MyLinkedList
+import java.util.*
 
 fun IntArray.toLinkedList(): ListNode? {
     var mockHead = ListNode(0)
@@ -33,4 +34,9 @@ fun MyLinkedList.ListNode?.toArrayList(): MutableList<Int> {
         p = p.next
     }
     return arrayList
+}
+
+
+fun IntArray.print(): String {
+    return Arrays.toString(this)
 }

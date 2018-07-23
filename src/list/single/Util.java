@@ -23,4 +23,26 @@ public class Util {
         }
         return result;
     }
+
+    public static ListNode reverse(ListNode head) {
+         if (head == null || head.next == null) {
+             return head;
+         }
+
+         ListNode pre = head;
+         ListNode cur = head.next;
+         ListNode next = cur.next;
+         while (cur != null) {
+             cur.next = pre;
+             pre = cur;
+             cur = next;
+             if (next != null) {
+                 next = next.next;
+             }
+         }
+
+         head.next = null;
+         return cur;
+    }
 }
+
