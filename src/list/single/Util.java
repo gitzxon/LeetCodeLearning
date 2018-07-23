@@ -1,0 +1,26 @@
+package list.single;
+
+import java.util.List;
+
+/**
+ * 用的时候从这里复制过去。
+ */
+public class Util {
+     public static int getLen(ListNode head) {
+         ListNode p = head;
+         int count = 0;
+         while (p != null) {
+             count += 1;
+             p = p.next;
+         }
+         return count;
+     }
+
+    public static ListNode[] map(List<ListNode> listNodes) {
+        ListNode[] result = new ListNode[listNodes.size()];
+        for (int i = 0; i < listNodes.size(); i++) {
+            result[i] = listNodes.get(i);
+        }
+        return result;
+    }
+}
