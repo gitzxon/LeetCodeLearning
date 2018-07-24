@@ -21,6 +21,8 @@ class Solution {
             p1 = reverseL2;
             p2 = reverseL1;
         }
+        ListNode resultToReturn = p1;
+
 
         int carry = 0;
         ListNode preP1 = null;
@@ -45,15 +47,13 @@ class Solution {
         if (carry != 0) {
             preP1.next = new ListNode(1);
             preP1 = preP1.next;
-        } else {
-            while (p1 != null) {
-                preP1 = p1;
-                p1 = p1.next;
-            }
         }
 
+        if (len1 > len2) {
 
-        return reverse(reverseL1);
+        }
+
+        return reverse(resultToReturn);
     }
 
     public int getValue(ListNode listNode) {
