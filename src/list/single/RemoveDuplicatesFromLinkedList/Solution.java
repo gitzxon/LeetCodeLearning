@@ -16,10 +16,7 @@ class Solution {
             if (valueToDelete == null) {
                 if (sameValueAsNext(p)) {
                     valueToDelete = p.val;
-                    // delete cur
-                    pre.next = p.next;
-                    p.next = null;
-                    p = pre.next;
+
                 } else {
                     // move next at the same time
                     p = p.next;
