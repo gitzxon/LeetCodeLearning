@@ -16,11 +16,12 @@ class Solution {
             if (valueToDelete == null) {
                 if (sameValueAsNext(p)) {
                     valueToDelete = p.val;
-
+                    continue;
                 } else {
                     // move next at the same time
                     p = p.next;
                     pre = pre.next;
+                    continue;
                 }
             } else {
                 if (p.val == valueToDelete) {
@@ -28,8 +29,10 @@ class Solution {
                     pre.next = p.next;
                     p.next = null;
                     p = pre.next;
+                    continue;
                 } else {
                     valueToDelete = null;
+                    continue;
                 }
             }
         }
