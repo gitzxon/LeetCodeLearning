@@ -16,7 +16,7 @@ fun IntArray.toLinkedList(): ListNode? {
 
 }
 
-fun ListNode.toArrayList(): MutableList<Int> {
+fun ListNode?.toArrayList(): MutableList<Int> {
     var p:ListNode? = this
     var arrayList: MutableList<Int> = ArrayList()
     while (p != null) {
