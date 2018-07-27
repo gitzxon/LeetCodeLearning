@@ -10,23 +10,38 @@ class Solution {
         dummy.next = head;
         ListNode pre = dummy;
         ListNode p = head;
+
         Integer valueToDelete = null;
-
-        while (p != null && (p.next != null || valueToDelete != null && valueToDelete == p.val)) {
-            if (p.next != null && p.val == p.next.val) {
-                valueToDelete = p.val;
-            }
-
-            if (valueToDelete != null && p.val == valueToDelete) {
-                pre.next = p.next;
-                p.next = null;
-                p = pre.next;
+        while (p != null) {
+            if (valueToDelete == null) {
+                if (sameValueAsNext(p)) {
+                    valueToDelete = p.val;
+                    // delete cur
+                    pre.next = p.next;
+                    p.next = null;
+                    p = pre.next;
+                } else {
+                    // move next at the same time
+                    p = p.next;
+                    pre = pre.next;
+                }
             } else {
-                p = p.next;
-                pre = pre.next;
+                if (p.val == valueToDelete) {
+                    // delete cur
+                    pre.next = p.next;
+                    p.next = null;
+                    p = pre.next;
+                } else {
+                    valueToDelete = null;
+                }
             }
         }
 
         return dummy.next;
     }
+
+    private boolean sameValueAsNext(ListNode p) {
+        return p.next != null && p.val == p.next.val;
+    }
+
 }
