@@ -24,6 +24,11 @@ public class Util {
         return result;
     }
 
+    /**
+     * input head, return new head, which is the tail in the origin list
+     * @param head
+     * @return
+     */
     public static ListNode reverse(ListNode head) {
         if (head == null || head.next == null) {
             return head;
@@ -42,7 +47,7 @@ public class Util {
         }
 
         head.next = null;
-        return cur;
+        return pre;
     }
 
     public static ListNode reverse(ListNode start, ListNode end) {
