@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 class Solution {
+
+    // // TODO: 2018/8/7 二分法优化
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
 
