@@ -8,6 +8,7 @@ import java.util.List;
  * 感觉这个解法应该是没错的，但是超时了。
  * 因为我直接套用 permutation 和 combination 的思路。但是这两个的要求都是，不能丢失。
  * 而这个题，因为我们的目标的 0，所以可以剪枝。
+ * todo: fast
  */
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
