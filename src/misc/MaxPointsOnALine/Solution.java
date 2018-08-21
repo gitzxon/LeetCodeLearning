@@ -5,9 +5,9 @@ import misc.Point;
 import java.util.*;
 
 /**
- * 此题目在做的时候，引起了极大的心理和生理上的不适，等有时间回头再看看吧。
+ * 改了好几版，终于到了 BigDecimal 这一步了。
  */
-class Solution {
+public class Solution {
     public int maxPoints(Point[] points) {
         if (points == null || points.length == 0) {
             return 0;
@@ -54,13 +54,21 @@ class Solution {
                 } else {
                     set = new HashSet<>();
                 }
+
+//                System.out.println("----------------------");
 //                System.out.println("p1 = " + p1);
 //                System.out.println("p2 = " + p2);
 //                System.out.println("line = " + line);
-//                System.out.println("set.size() = " + set.size());
+//                System.out.println("before set.size() = " + set.size());
 
                 set.add(p1);
                 set.add(p2);
+
+//                System.out.println("after set.size() = " + set.size());
+//                System.out.println("line.k = " + line.k);
+//                System.out.println("line.b = " + line.b);
+//                System.out.println("set = " + set);
+
                 lineToPointsHashMap.put(line, set);
             }
         }
@@ -92,7 +100,7 @@ class Solution {
         return isOnLine(line, pointWrapper.x, pointWrapper.y);
     }
 
-    boolean isOnLine(Line line, int x, int y) {
+    boolean isOnLine(Line line, double x, double y) {
         if (line.vertical) {
             return line.b == x;
         } else {
@@ -112,23 +120,23 @@ class Solution {
         } else if (point1.y == point2.y) {
             return new Line(0, point1.y);
         } else {
-            int k = (point1.y - point2.y) / (point1.x - point2.x);
-            int b = point1.y - k * point1.x;
+            double k = (point1.y - point2.y) / (point1.x - point2.x);
+            double b = point1.y - k * point1.x;
             return new Line(k, b);
         }
     }
 
     public class Line {
-        int k;
-        int b;
+        double k;
+        double b;
         boolean vertical = false;
 
-        public Line(int k, int b) {
+        public Line(double k, double b) {
             this.k = k;
             this.b = b;
         }
 
-        public Line(int b) {
+        public Line(double b) {
             vertical = true;
             this.b = b;
         }
@@ -155,7 +163,7 @@ class Solution {
 
         @Override
         public int hashCode() {
-            return k & b;
+            return (int)k & (int)b;
 //            return toString().hashCode();
 
         }
@@ -169,9 +177,9 @@ class Solution {
         }
     }
 
-    public static class PointWrapper {
-        int x;
-        int y;
+    public class PointWrapper {
+        double x;
+        double y;
 
         public PointWrapper(Point point) {
             this.x = point.x;
@@ -180,7 +188,7 @@ class Solution {
 
         @Override
         public int hashCode() {
-            return x & y;
+            return (int) x & (int) y;
         }
 
         @Override
@@ -197,7 +205,7 @@ class Solution {
 
         @Override
         public String toString() {
-            return "( " + x + ", " + y + " )";
+            return "( " + (int)x + ", " + (int)y + " )";
         }
     }
 }
