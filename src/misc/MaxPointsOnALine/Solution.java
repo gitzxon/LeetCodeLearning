@@ -4,6 +4,9 @@ import misc.Point;
 
 import java.util.*;
 
+/**
+ * 此题目在做的时候，引起了极大的心理和生理上的不适，等有时间回头再看看吧。
+ */
 class Solution {
     public int maxPoints(Point[] points) {
         if (points == null || points.length == 0) {
