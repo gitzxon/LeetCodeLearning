@@ -13,20 +13,25 @@ class Solution {
             return 0;
         }
 
+        // Point to PointWrapper
         PointWrapper[] pointWrappers = new PointWrapper[points.length];
         for (int i = 0; i < points.length; i++) {
             pointWrappers[i] = new PointWrapper(points[i]);
         }
 
+        // count PointWrapper
         HashMap<PointWrapper, Integer> pointerWrapperToCountHashMap = new HashMap<>();
         for (PointWrapper pointWrapper : pointWrappers) {
             pointerWrapperToCountHashMap.put(pointWrapper, pointerWrapperToCountHashMap.getOrDefault(pointWrapper, 0) + 1);
         }
 
+        // unique PointWrapper
         List<PointWrapper> uniquePointWrapperList = new ArrayList<>(pointerWrapperToCountHashMap.keySet().size());
         for (PointWrapper pointWrapper : pointerWrapperToCountHashMap.keySet()) {
             uniquePointWrapperList.add(pointWrapper);
         }
+
+//        System.out.println("uniquePointWrapperList = " + uniquePointWrapperList);
 
         HashMap<Line, HashSet<PointWrapper>> lineToPointsHashMap = new HashMap<>();
         outer:
@@ -42,7 +47,18 @@ class Solution {
 
                 PointWrapper p2 = uniquePointWrapperList.get(j);
                 Line line = getLine(p1, p2);
-                HashSet<PointWrapper> set = lineToPointsHashMap.getOrDefault(line, new HashSet<>());
+
+                HashSet<PointWrapper> set;
+                if (lineToPointsHashMap.containsKey(line)) {
+                    set = lineToPointsHashMap.get(line);
+                } else {
+                    set = new HashSet<>();
+                }
+//                System.out.println("p1 = " + p1);
+//                System.out.println("p2 = " + p2);
+//                System.out.println("line = " + line);
+//                System.out.println("set.size() = " + set.size());
+
                 set.add(p1);
                 set.add(p2);
                 lineToPointsHashMap.put(line, set);
@@ -59,8 +75,6 @@ class Solution {
             }
             if (count > max) {
                 max = count;
-                System.out.println("k = " + entry.getKey().k);
-                System.out.println("b = " + entry.getKey().b);
             }
         }
 
@@ -104,7 +118,7 @@ class Solution {
         }
     }
 
-    class Line {
+    public class Line {
         int k;
         int b;
         boolean vertical = false;
@@ -131,6 +145,8 @@ class Solution {
             Line that = (Line) obj;
             if (that.vertical && this.vertical) {
                 return this.b == that.b;
+            } else if (this.vertical || that.vertical) {
+                return false;
             } else {
                 return this.k == that.k
                         && this.b == that.b;
@@ -140,15 +156,20 @@ class Solution {
         @Override
         public int hashCode() {
             return k & b;
+//            return toString().hashCode();
+
         }
 
         @Override
         public String toString() {
+            if (vertical) {
+                return "k: @@" + " b : " + b;
+            }
             return "k: " + k + " b : " + b;
         }
     }
 
-    class PointWrapper {
+    public static class PointWrapper {
         int x;
         int y;
 
@@ -176,7 +197,7 @@ class Solution {
 
         @Override
         public String toString() {
-            return "x : " + x + " y : " + y;
+            return "( " + x + ", " + y + " )";
         }
     }
 }
