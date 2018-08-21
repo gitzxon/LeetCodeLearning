@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * 改了好几版，终于到了 BigDecimal 这一步了。
+ * todo: finish big decimal
  */
 public class Solution {
     public int maxPoints(Point[] points) {
