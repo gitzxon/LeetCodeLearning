@@ -1,8 +1,6 @@
-package graph.CourseSchedule.One
+package graph.CourseSchedule.I
 
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class SolutionTest {
 

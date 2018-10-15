@@ -1,9 +1,7 @@
-package graph.CourseSchedule.One;
+package graph.CourseSchedule.I;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {

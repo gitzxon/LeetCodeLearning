@@ -1,8 +1,7 @@
-package graph.CourseSchedule.Tow
+package graph.CourseSchedule.II
 
 import org.junit.Test
 
-import org.junit.Assert.*
 import java.util.*
 
 class SolutionTest {
@@ -14,7 +13,7 @@ class SolutionTest {
                 intArrayOf(3, 2),
                 intArrayOf(2, 1),
                 intArrayOf(1, 0))
-        val result = graph.CourseSchedule.Tow.Solution().findOrder(5, array)
+        val result = graph.CourseSchedule.II.Solution().findOrder(5, array)
         println("result = ${Arrays.toString(result)}")
 
     }
@@ -23,7 +22,7 @@ class SolutionTest {
     fun findOrder1() {
         val array = arrayOf(
                 intArrayOf(1, 0))
-        val result = graph.CourseSchedule.Tow.Solution().findOrder(2, array)
+        val result = graph.CourseSchedule.II.Solution().findOrder(2, array)
         println("result = ${Arrays.toString(result)}")
     }
 }
