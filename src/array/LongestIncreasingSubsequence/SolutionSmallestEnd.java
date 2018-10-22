@@ -42,8 +42,9 @@ public class SolutionSmallestEnd {
         private int binarySearch(int[] nums, int start, int end, int key) {
             int i = start;
             int j = end;
+            int m = -1;
             while (i < j) {
-                int m = (i + j) / 2;
+                m = (i + j) / 2;
                 if (nums[m] == key) {
                     return m;
                 } else if (nums[m] < key) {
@@ -54,13 +55,9 @@ public class SolutionSmallestEnd {
             }
 
             if (i == j) {
-                if (i == end) {
-                    return i;
-                } else {
-                    return i + 1;
-                }
+                return m + 1;
             } else {
-                return i;
+                return m;
             }
 
         }
