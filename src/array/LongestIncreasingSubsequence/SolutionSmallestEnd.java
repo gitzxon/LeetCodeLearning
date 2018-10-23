@@ -55,7 +55,7 @@ public class SolutionSmallestEnd {
             }
 
             if (i == j) {
-                return m + 1;
+                return m + 1; // for 2,4,5,19 and ginven 6, expected 2,4,5,6
             } else {
                 return m;
             }
