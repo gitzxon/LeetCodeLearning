@@ -1,6 +1,8 @@
 package palindrome.PalindromePairs;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,35 +40,54 @@ class Solution {
 
         List<List<Integer>> result = new ArrayList<>();
 
-        List<Integer> emptyList = new ArrayList<>();
-        List<Integer> palindromeList = new ArrayList<>();
-        for (int i = 0; i < words.length; i++) {
-            if (words[i] == null || words[i].length() == 0) {
-                emptyList.add(i);
-            } else if (isPalindrome(words[i])) {
-                palindromeList.add(i);
-            }
-        }
-        for (int i = 0; i < emptyList.size(); i++) {
-            for (int j = 0; j < palindromeList.size(); j++) {
-                addResult(result, emptyList.get(i), palindromeList.get(j));
-                addResult(result, palindromeList.get(j), emptyList.get(i) );
-            }
-        }
+        // handle empty and self-palindrome
+//        List<Integer> emptyList = new ArrayList<>();
+//        List<Integer> palindromeList = new ArrayList<>();
+//        for (int i = 0; i < words.length; i++) {
+//            if (words[i] == null || words[i].length() == 0) {
+//                emptyList.add(i);
+//            } else if (isPalindrome(words[i])) {
+//                palindromeList.add(i);
+//            }
+//        }
+//        for (int i = 0; i < emptyList.size(); i++) {
+//            for (int j = 0; j < palindromeList.size(); j++) {
+//                addResult(result, emptyList.get(i), palindromeList.get(j));
+//                addResult(result, palindromeList.get(j), emptyList.get(i) );
+//            }
+//        }
 
         for (int i = 0; i < words.length; i++) {
             String word = words[i];
-            if (word == null || word.length() == 0) {
-                continue;
-            }
-            TrieNode node = reverseTrieRoot.startWith(word);
-            if (node != null) {
-                if (node.isEnd) {
-                    addResult(result, i, node.originIndex);
+            TrieNode cur = reverseTrieRoot;
+            boolean wordNotEnough = false;
+            if (word.length() == 0) {
+                wordNotEnough = true;
+            } else {
+
+                for (int j = 0; j < word.length(); j++) {
+                    char c = word.charAt(j);
+
+                    // 这里 handle 了所有 trie 耗尽的情况
+                    if (cur.isEnd) {
+                        if (isPalindrome(word, j, word.length() - 1)) {
+                            addResult(result, i, cur.originIndex);
+                        }
+                    }
+
+                    if (cur.nextMap.containsKey(c)) {
+                        cur = cur.nextMap.get(c);
+                    }
                 }
 
-                if (node.nextMap.keySet().size() != 0) {
-                    List<TrieNode.RemainingResultWrapper> remainingResultWrapperList = node.findRemaining();
+                if (!cur.isEnd) {
+                    wordNotEnough = true;
+                }
+            }
+
+            if (wordNotEnough) {
+                if (cur.nextMap.keySet().size() != 0) {
+                    List<TrieNode.RemainingResultWrapper> remainingResultWrapperList = cur.findRemaining();
                     for (TrieNode.RemainingResultWrapper remainingResultWrapper : remainingResultWrapperList) {
                         boolean isPalindrome = isPalindrome(words[remainingResultWrapper.originIndex], 0, remainingResultWrapper.size - 1);
                         if (isPalindrome) {
@@ -75,6 +96,7 @@ class Solution {
                     }
                 }
             }
+
         }
 
         return result;
