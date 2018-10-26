@@ -40,63 +40,44 @@ class Solution {
 
         List<List<Integer>> result = new ArrayList<>();
 
-        // handle empty and self-palindrome
-//        List<Integer> emptyList = new ArrayList<>();
-//        List<Integer> palindromeList = new ArrayList<>();
-//        for (int i = 0; i < words.length; i++) {
-//            if (words[i] == null || words[i].length() == 0) {
-//                emptyList.add(i);
-//            } else if (isPalindrome(words[i])) {
-//                palindromeList.add(i);
-//            }
-//        }
-//        for (int i = 0; i < emptyList.size(); i++) {
-//            for (int j = 0; j < palindromeList.size(); j++) {
-//                addResult(result, emptyList.get(i), palindromeList.get(j));
-//                addResult(result, palindromeList.get(j), emptyList.get(i) );
-//            }
-//        }
-
+        // aa, a
         for (int i = 0; i < words.length; i++) {
+
             String word = words[i];
-            TrieNode cur = reverseTrieRoot;
-            boolean wordNotEnough = false;
-            if (word.length() == 0) {
-                wordNotEnough = true;
-            } else {
+            TrieNode curNode = reverseTrieRoot;
 
-                for (int j = 0; j < word.length(); j++) {
-                    char c = word.charAt(j);
+            boolean trieNotEnough = false;
+            for (int j = 0; j < word.length(); j++) {
+                char c = word.charAt(j);
 
-                    // 这里 handle 了所有 trie 耗尽的情况
-                    if (cur.isEnd) {
+                if (curNode.isEnd) {
+                    if (isPalindrome(word, j, word.length() - 1)) {
+                        addResult(result, i, curNode.originIndex);
+                    }
+                }
+
+                if (curNode.nextMap.containsKey(c)) {
+
+                    if (j == word.length() - 1) {
                         if (isPalindrome(word, j, word.length() - 1)) {
-                            addResult(result, i, cur.originIndex);
+                            addResult(result, i, curNode.originIndex);
                         }
                     }
-
-                    if (cur.nextMap.containsKey(c)) {
-                        cur = cur.nextMap.get(c);
-                    }
-                }
-
-                if (!cur.isEnd) {
-                    wordNotEnough = true;
+                    curNode = curNode.nextMap.get(c);
+                } else {
+                    trieNotEnough = true;
+                    break;
                 }
             }
+            if (!trieNotEnough) {
+                for (Integer integer : curNode.palindromeFromHereList) {
+                    addResult(result, i, integer);
+                }
 
-            if (wordNotEnough) {
-                if (cur.nextMap.keySet().size() != 0) {
-                    List<TrieNode.RemainingResultWrapper> remainingResultWrapperList = cur.findRemaining();
-                    for (TrieNode.RemainingResultWrapper remainingResultWrapper : remainingResultWrapperList) {
-                        boolean isPalindrome = isPalindrome(words[remainingResultWrapper.originIndex], 0, remainingResultWrapper.size - 1);
-                        if (isPalindrome) {
-                            addResult(result, i, remainingResultWrapper.originIndex);
-                        }
-                    }
+                if (curNode.isEnd && curNode.nextMap.size() == 0) {
+                    addResult(result, i, curNode.originIndex);
                 }
             }
-
         }
 
         return result;
@@ -104,6 +85,9 @@ class Solution {
 
 
     private void addResult(List<List<Integer>> result, int i, int j) {
+        if (i == -1 || j == -1) {
+            return;
+        }
         if (i == j) {
             return;
         }
@@ -117,67 +101,26 @@ class Solution {
     private static class TrieNode {
         HashMap<Character, TrieNode> nextMap = new HashMap<>();
         boolean isEnd;
-        int originIndex;
+        int originIndex = -1;
+        List<Integer> palindromeFromHereList = new ArrayList<>();
 
         private void insert(String originString, int index) {
             String text = reverse(originString);
             TrieNode cur = this;
             for (int i = 0; i < text.length(); i++) {
                 char c = text.charAt(i);
-                TrieNode nextNode = cur.nextMap.getOrDefault(c, new TrieNode());
-                cur.nextMap.put(c, nextNode);
-                cur = nextNode;
+                if (isPalindrome(text, i, text.length() - 1)) {
+                    cur.palindromeFromHereList.add(index);
+                }
+
+                if (!cur.nextMap.containsKey(c)) {
+                    cur.nextMap.put(c, new TrieNode());
+                }
+
+                cur = cur.nextMap.get(c);
             }
             cur.isEnd = true;
             cur.originIndex = index;
-        }
-
-        private TrieNode startWith(String text) {
-            if (text == null || text.length() == 0) {
-                return this;
-            }
-            TrieNode cur = this;
-            for (int i = 0; i < text.length(); i++) {
-                char c = text.charAt(i);
-                if (cur.nextMap.containsKey(c)) {
-                    cur = cur.nextMap.get(c);
-                } else {
-                    return null;
-                }
-            }
-            return cur;
-        }
-
-        private List<RemainingResultWrapper> findRemaining() {
-            TrieNode cur = this;
-            return performFindRemaining(new ArrayList<>(), 0, cur);
-        }
-
-        private List<RemainingResultWrapper> performFindRemaining(List<RemainingResultWrapper> resultContainer, int curSize, TrieNode curNode) {
-            if (curNode.nextMap.keySet().size() == 0) {
-                resultContainer.add(new RemainingResultWrapper(
-                        curSize,
-                        curNode.originIndex
-                ));
-                return resultContainer;
-            }
-
-            for (Character character : curNode.nextMap.keySet()) {
-                performFindRemaining(resultContainer, curSize + 1, curNode.nextMap.get(character));
-            }
-
-            return resultContainer;
-        }
-
-        private static class RemainingResultWrapper {
-            int size;
-
-            public RemainingResultWrapper(int size, int originIndex) {
-                this.size = size;
-                this.originIndex = originIndex;
-            }
-
-            int originIndex;
         }
     }
 
