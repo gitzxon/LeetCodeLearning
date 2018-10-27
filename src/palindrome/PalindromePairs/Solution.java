@@ -1,8 +1,6 @@
 package palindrome.PalindromePairs;
 
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +16,9 @@ class Solution {
     }
 
     private static boolean isPalindrome(String text, int start, int end) {
+        if (start > end) {
+            return false;
+        }
         int i = start;
         int j = end;
         while (i < j) {
@@ -33,51 +34,66 @@ class Solution {
 
     public List<List<Integer>> palindromePairs(String[] words) {
 
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> selfPalindromeList = new ArrayList<>();
+        List<Integer> emptyList = new ArrayList<>();
+
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].isEmpty()) {
+                emptyList.add(i);
+            }
+
+            if (isPalindrome(words[i])) {
+                selfPalindromeList.add(i);
+            }
+        }
+
+        for (int i = 0; i < selfPalindromeList.size(); i++) {
+            for (int j = 0; j < emptyList.size(); j++) {
+                addResult(result,selfPalindromeList.get(i) , emptyList.get(j));
+                addResult(result, emptyList.get(j), selfPalindromeList.get(i));
+            }
+        }
+
         TrieNode reverseTrieRoot = new TrieNode();
         for (int i = 0; i < words.length; i++) {
+            if (words[i].isEmpty()) {
+                continue;
+            }
             reverseTrieRoot.insert(words[i], i);
         }
 
-        List<List<Integer>> result = new ArrayList<>();
-
-        // aa, a
         for (int i = 0; i < words.length; i++) {
+            if (words[i].isEmpty()) {
+                continue;
+            }
 
             String word = words[i];
             TrieNode curNode = reverseTrieRoot;
 
-            boolean trieNotEnough = false;
             for (int j = 0; j < word.length(); j++) {
                 char c = word.charAt(j);
-
-                if (curNode.isEnd) {
-                    if (isPalindrome(word, j, word.length() - 1)) {
-                        addResult(result, i, curNode.originIndex);
-                    }
+                if (!curNode.nextMap.containsKey(c)) {
+                    break;
                 }
-
                 if (curNode.nextMap.containsKey(c)) {
-
+                    curNode = curNode.nextMap.get(c);
                     if (j == word.length() - 1) {
-                        if (isPalindrome(word, j, word.length() - 1)) {
+                        if (curNode.isEnd) {
+                            addResult(result, i, curNode.originIndex);
+                        }
+                        for (Integer integer : curNode.palindromeFromHereList) {
+                            addResult(result, i, integer);
+                        }
+                    } else {
+                        if (curNode.isEnd
+                                && isPalindrome(word, j + 1, word.length() - 1)) {
                             addResult(result, i, curNode.originIndex);
                         }
                     }
-                    curNode = curNode.nextMap.get(c);
-                } else {
-                    trieNotEnough = true;
-                    break;
                 }
             }
-            if (!trieNotEnough) {
-                for (Integer integer : curNode.palindromeFromHereList) {
-                    addResult(result, i, integer);
-                }
 
-                if (curNode.isEnd && curNode.nextMap.size() == 0) {
-                    addResult(result, i, curNode.originIndex);
-                }
-            }
         }
 
         return result;
@@ -116,7 +132,6 @@ class Solution {
                 if (!cur.nextMap.containsKey(c)) {
                     cur.nextMap.put(c, new TrieNode());
                 }
-
                 cur = cur.nextMap.get(c);
             }
             cur.isEnd = true;
