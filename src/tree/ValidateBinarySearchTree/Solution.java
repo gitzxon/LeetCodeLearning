@@ -3,11 +3,13 @@ package tree.ValidateBinarySearchTree;
 import tree.TreeNode;
 
 class Solution {
+
+
     public boolean isValidBST(TreeNode root) {
-        return helper(null, root);
+        return helper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    private boolean helper(TreeNode parentNode, TreeNode currentNode) {
+    private boolean helper(TreeNode currentNode, long min, long max) {
         if (currentNode == null) {
             return true;
         }
@@ -20,20 +22,19 @@ class Solution {
             return false;
         }
 
-        if (parentNode != null) {
-            if (parentNode.right == currentNode) {
-                if (currentNode.left != null && currentNode.left.val <= parentNode.val) {
-                    return false;
-                }
-            } else {
-                if (currentNode.right != null && currentNode.right.val >= parentNode.val) {
-                    return false;
-                }
-            }
+        if (currentNode.val <= min) {
+            return false;
         }
 
-        boolean left = helper(currentNode, currentNode.left);
-        boolean right = helper(currentNode, currentNode.right);
+        if (currentNode.val >= max) {
+            return false;
+        }
+
+        long newMin = Math.max(currentNode.val, min);
+        long newMax = Math.min(currentNode.val, max);
+
+        boolean left = helper(currentNode.left, min, newMax);
+        boolean right = helper(currentNode.right, newMin, max);
         return left && right;
     }
 }
