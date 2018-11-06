@@ -34,4 +34,24 @@ class SolutionTest {
                 3,
                 Solution().shortestSubarray(intArrayOf(84, -37, 32, 40, 95), 167))
     }
+
+    @Test
+    fun test3() {
+        assertEquals(
+                2,
+                Solution().shortestSubarray(intArrayOf(
+                        17,85,93,-45,-21
+                ), 150)
+        )
+    }
+
+    @Test
+    fun test4() {
+        assertEquals(
+                2,
+                Solution().shortestSubarray(intArrayOf(
+                        56,-21,56,35,-9
+                ), 61)
+        )
+    }
 }

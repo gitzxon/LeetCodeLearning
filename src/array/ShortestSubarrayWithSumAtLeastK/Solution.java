@@ -13,6 +13,10 @@ import java.util.TreeMap;
 class Solution {
 
     public int shortestSubarray(int[] A, int K) {
+        return shortestSubarraySBVersion(A, K);
+    }
+
+    public int shortestSubarrayNBVersion(int[] A, int K) {
         int N = A.length;
         int res = N + 1;
         int[] B = new int[N + 1];
@@ -61,10 +65,20 @@ class Solution {
             }
 
             int delta = sums[i] - k;
-            Map.Entry<Integer, Integer> ceiling = treeMap.ceilingEntry(delta);
+            Map.Entry<Integer, Integer> ceiling = treeMap.floorEntry(delta);
+
             if (ceiling != null) {
                 if (sums[i] - ceiling.getKey() >= k) {
-                    len = Math.min(len, i - ceiling.getValue());
+                    Map.Entry<Integer, Integer> entry = treeMap.firstEntry();
+                    /**
+                     * 加上这个遍历之后，感觉结果是对的，但是 tle 了。
+                     * 需要减少此处的遍历次数。
+                     * todo
+                     */
+                    while (entry != null && entry.getKey() <= ceiling.getKey()) {
+                        len = Math.min(len, i - entry.getValue());
+                        entry = treeMap.higherEntry(entry.getKey());
+                    }
                 }
             }
 
