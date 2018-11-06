@@ -74,9 +74,14 @@ class Solution {
                      * 加上这个遍历之后，感觉结果是对的，但是 tle 了。
                      * 需要减少此处的遍历次数。
                      * todo
+                     * 添加一个 treeMap.remove 可以勉强通过了。
+                     * 为甚么可以 remove ？
+                     * 因为 i 是不断增长的，那么对于后续 i 而言，只有比这个 ceiling.getKey() 更大的 i，才有可能
+                     * 成为 minLen。所以 ceiling 之前的可以都 remove 掉。
                      */
                     while (entry != null && entry.getKey() <= ceiling.getKey()) {
                         len = Math.min(len, i - entry.getValue());
+                        treeMap.remove(entry.getKey());
                         entry = treeMap.higherEntry(entry.getKey());
                     }
                 }
