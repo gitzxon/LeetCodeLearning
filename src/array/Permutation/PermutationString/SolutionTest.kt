@@ -1,4 +1,4 @@
-package string.PermutationString
+package array.Permutation.PermutationString
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

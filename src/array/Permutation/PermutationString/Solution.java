@@ -1,4 +1,4 @@
-package string.PermutationString;
+package array.Permutation.PermutationString;
 
 import java.util.HashMap;
 
