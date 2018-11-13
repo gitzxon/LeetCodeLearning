@@ -27,9 +27,10 @@ class Solution {
         // todo
         int sumForIJ = (m + n + 1) / 2;
         int start = 0;
-        int end = m;
+        int end = m - 1;
         while (true) {
-            int i = (start + end) / 2;
+//            int i = (start + end) / 2;
+            int i = start + (end - start) / 2;
             int j = sumForIJ - i;
 
             if (i < m && nums2[j - 1] > nums1[i]) {
