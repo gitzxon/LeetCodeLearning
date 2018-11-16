@@ -2,86 +2,74 @@ package search.ThreeSum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
-class Solution {
-
-    private HashMap<Integer, Integer> mNumsToIndexMap = new HashMap<>(5000);
-    private final int mTargetCount = 3;
+public class Solution {
 
     public List<List<Integer>> threeSum(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return new ArrayList<>();
-        }
-
         Arrays.sort(nums);
-
-        System.out.println(Arrays.toString(nums));
-
-        mNumsToIndexMap.put(nums[0], 0);
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1]) {
-                mNumsToIndexMap.put(nums[i], i);
-            }
-        }
-        return helper(new ArrayList<>(), nums, new ArrayList<>(), 0, 0, 0);
+        return helper(nums, 3, 0, 0);
     }
 
-
     private List<List<Integer>> helper(
-            List<List<Integer>> resultContainer,
             int[] nums,
-            List<Integer> currentList,
-            int nextIndex,
-            int currentCount,
-            int currentSum
+            int targetCount,
+            int targetSum,
+            int currentIndex
     ) {
-        if (currentCount == mTargetCount) {
-            if (currentSum == 0) {
-                List<Integer> tmpResult = new ArrayList<>(3);
-                tmpResult.addAll(currentList);
-                resultContainer.add(tmpResult);
-            }
-            return resultContainer;
-        }
 
-        if (nextIndex >= nums.length) {
-            return resultContainer;
-        }
+        List<List<Integer>> resultContainer = new ArrayList<>();
 
-        // -4, -1, -1, 0, 1, 2
-        for (int i = nextIndex; i < nums.length; i++) {
+        if (targetCount == 2) {
+            int i = currentIndex;
+            int j = nums.length - 1;
+            while (i < j) {
+                if (nums[i] + nums[j] == targetSum) {
+                    List<Integer> result = new ArrayList<>(2);
+                    result.add(nums[i]);
+                    result.add(nums[j]);
+                    resultContainer.add(result);
+                    while (i < j && nums[i] == nums[i + 1]) {
+                        i++;
+                    }
+                    while (i < j && nums[j] == nums[j - 1]) {
+                        j--;
+                    }
+                    i++;
+                    j--;
 
-            if (currentSum >= 0 && nums[i] > 0) {
-                continue;
-            }
-
-            if (currentCount == mTargetCount - 1 && !mNumsToIndexMap.containsKey(0 - currentSum)) {
-                continue;
-            }
-
-            if (i >= 1 && nums[i] == nums[i-1]) {
-                // handle same num
-                int startIndexForThisNum = mNumsToIndexMap.get(nums[i]);
-                int tmpIndex = i - startIndexForThisNum; // 0, 1, 2, 3 ...
-
-                int startIndexInCurrentList = currentList.size() - tmpIndex;
-                if ( !(startIndexInCurrentList >= 0
-                        && currentList.get(startIndexInCurrentList) == nums[i])) {
-                    continue;
+                } else if (nums[i] + nums[j] > targetSum) {
+                    j--;
+                } else {
+                    i++;
                 }
             }
+        } else {
 
-            currentList.add(nums[i]);
-            helper(
-                    resultContainer,
-                    nums,
-                    currentList,
-                    i + 1,
-                    currentCount + 1,
-                    currentSum + nums[i]);
-            currentList.remove(currentList.size() - 1);
+            for (int i = 0; i < nums.length; i++) {
+
+                if (i - 1 >= 0 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+
+                List<List<Integer>> res = helper(
+                        nums,
+                        targetCount - 1,
+                        targetSum - nums[i],
+                        i + 1
+                );
+
+                if (res != null && res.size() != 0) {
+                    for (int j = 0; j < res.size(); j++) {
+                        res.get(j).add(0, nums[i]);
+                    }
+
+                    resultContainer.addAll(res);
+                }
+
+
+            }
+
         }
 
         return resultContainer;
