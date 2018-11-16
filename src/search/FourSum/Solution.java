@@ -1,14 +1,18 @@
-package search.ThreeSum;
+package search.FourSum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Solution {
-
-    public List<List<Integer>> threeSum(int[] nums) {
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
         Arrays.sort(nums);
-        return helper(nums, 3, 0, 0);
+        return helper(
+                nums,
+                4,
+                target,
+                0
+        );
     }
 
     private List<List<Integer>> helper(
@@ -48,6 +52,10 @@ public class Solution {
 
             for (int i = currentIndex; i < nums.length; i++) {
 
+                // 这里必须使用 i> currentIndex, 而不是简单的 i-1>0
+                // 因为这里只做一个简单的有效性判断是不够的。
+                // i > currentIndex 的含义是，不让此 i 后面的相同数字鸠占鹊巢，
+                // 比如，不让第二个 i 占用第一个 i 的位置产生重复结果
                 if (i > currentIndex && nums[i] == nums[i - 1]) {
                     continue;
                 }
