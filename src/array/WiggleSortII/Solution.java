@@ -7,47 +7,30 @@ class Solution {
         if (nums == null) return;
         if (nums.length <= 2) return;
 
-        int k;
-        if (nums.length % 2 == 0) {
-            k = nums.length / 2;
-        } else {
-            k = nums.length / 2 + 1;
-        }
+        int k = (nums.length + 1) / 2;
         findKthLargest(nums, k);
-        int theK = nums[k];
+        int median = nums[k];
 
+
+
+        int left = 0;
+        int i = 0;
+        int right = nums.length - 1;
         // 需要弄一个 mapping 出来。
         // (1 + i * 2) % (n | 1)
-        int start1;
-        int start2;
-        if (nums.length % 2 == 0) {
-            start1 = (nums.length - 1) % 2;
-            start2 = (nums.length - 1) % 2 + 1;
-        } else {
-            start1 = nums.length % 2 - 1;
-            start2 = nums.length % 2 + 1;
-        }
-        for (int i = start1; i >= 0; i--) {
-            if (nums[i] == theK) {
-                swap(nums, i, start1 - i);
+        // 需要自己体悟这种 virtual index 的解法。
+        while (i <= right) {
+            if (nums[newIndex(i, nums)] > median) {
+                swap(nums, newIndex(left, nums), newIndex(i, nums));
+                left++;
+                i++;
+            } else if (nums[newIndex(i, nums)] < median) {
+                swap(nums, newIndex(right, nums), newIndex(i, nums));
+                right--;
             } else {
-                break;
+                i++;
             }
         }
-
-        for (int i = start2; i <= nums.length - 1; i++) {
-            if (nums[i] == theK) {
-                swap(nums, i, nums.length - 1 + start2 - i);
-            } else {
-                break;
-            }
-        }
-
-        int mid = (nums.length - 1) / 2;
-        for (int i = mid; i >= 0; i--) {
-            swap(nums, i, i * 2);
-        }
-
     }
 
     private int findKthLargest(int[] nums, int k) {
@@ -80,5 +63,15 @@ class Solution {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
+    }
+
+    private int newIndex(int index, int[] nums) {
+//        int mod;
+//        if (nums.length % 2 == 0) {
+//            mod = nums.length + 1;
+//        } else {
+//            mod = nums.length;
+//        }
+        return (1 + 2 * index) % (nums.length | 1);
     }
 }
