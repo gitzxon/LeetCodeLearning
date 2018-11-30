@@ -1,5 +1,6 @@
 package array.WiggleSortII
 
+import org.junit.Assert.assertArrayEquals
 import org.junit.Test
 import java.util.*
 
@@ -24,5 +25,15 @@ class SolutionTest {
         val nums = intArrayOf(1, 1, 2, 1, 2, 2, 1)
         Solution().wiggleSort(nums)
         println(Arrays.toString(nums))
+    }
+
+    @Test
+    fun t3() {
+        val nums = intArrayOf(2, 1)
+        Solution().wiggleSort(nums)
+        assertArrayEquals(
+                intArrayOf(1, 2),
+                nums
+        )
     }
 }
