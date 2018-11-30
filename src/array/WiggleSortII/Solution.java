@@ -11,8 +11,6 @@ class Solution {
         findKthLargest(nums, k);
         int median = nums[k];
 
-
-
         int left = 0;
         int i = 0;
         int right = nums.length - 1;
@@ -37,6 +35,9 @@ class Solution {
         return findKthHelper(nums, 0, nums.length - 1, k - 1);
     }
 
+    /**
+     * 找到第 k 小的。
+     */
     private int findKthHelper(int[] nums, int lo, int hi, int key) {
         int pivot = nums[hi];
         int current = lo;
@@ -72,6 +73,7 @@ class Solution {
 //        } else {
 //            mod = nums.length;
 //        }
+        // 即，偶数的时候，数组长度 + 1；奇数的时候，数组长度；
         return (1 + 2 * index) % (nums.length | 1);
     }
 }
