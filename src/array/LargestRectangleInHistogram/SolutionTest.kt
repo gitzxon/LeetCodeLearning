@@ -1,0 +1,23 @@
+package array.LargestRectangleInHistogram
+
+import org.junit.Assert.assertEquals
+import org.junit.Test
+
+class SolutionTest {
+
+    @Test
+    fun largestRectangleArea() {
+        assertEquals(
+                10,
+                Solution().largestRectangleArea(intArrayOf(2, 1, 5, 6, 2, 3))
+        )
+    }
+
+    @Test
+    fun t1() {
+        assertEquals(
+                4,
+                Solution().largestRectangleArea(intArrayOf(2, 4))
+        )
+    }
+}
