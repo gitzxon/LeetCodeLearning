@@ -8,9 +8,9 @@ class Solution {
         if (nums.length <= 1) return;
 
         int k = (nums.length + 1) / 2;
-        findKthLargest(nums, k);
-        int median = nums[k];
-
+        int findResult = findKthLargest(nums, k);
+        int median = nums[k-1];
+        // assert findResult == median
         int left = 0;
         int i = 0;
         int right = nums.length - 1;

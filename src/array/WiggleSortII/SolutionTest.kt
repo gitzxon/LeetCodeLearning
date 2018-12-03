@@ -36,4 +36,15 @@ class SolutionTest {
                 nums
         )
     }
+
+    @Test
+    fun t4() {
+        val nums = intArrayOf(3,2,1,3)
+        Solution().wiggleSort(nums)
+        println("Arrays.toString(nums) = ${Arrays.toString(nums)}")
+        assertArrayEquals(
+                intArrayOf(2,3,1,3),
+                nums
+        )
+    }
 }
