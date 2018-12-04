@@ -20,4 +20,19 @@ class SolutionTest {
                 Solution().largestRectangleArea(intArrayOf(2, 4))
         )
     }
+
+    @Test
+    fun t2() {
+        assertEquals(
+                2,
+                Solution().largestRectangleArea(intArrayOf(1, 1))
+        )
+    }
+
+    @Test
+    fun t3() {
+        assertEquals(3,
+                Solution().largestRectangleArea(intArrayOf(2, 1, 2))
+        )
+    }
 }

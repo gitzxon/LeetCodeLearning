@@ -41,15 +41,13 @@ class Solution {
 
     private int calAreaAndPop(int[] heights, Stack<Integer> stack, int givenEnd) {
         Integer poppedIndex = stack.pop();
-        int width;
+        int start;
         if (stack.empty()) {
-            width = 1;
+            start = 0;
         } else {
-//            int start = stack.peek() + 1;
-//            int end = givenEnd - 1;
-//            width = end - start + 1;
-            width = givenEnd - stack.peek() - 1;
+            start = stack.peek() + 1;
         }
+        int width = givenEnd - start;
         return width * heights[poppedIndex];
     }
 }
