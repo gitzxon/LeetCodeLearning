@@ -1,7 +1,7 @@
-package backtracking.ThreeSum
+package pattern.ThreeSum.ThreeSum
 
-import backtracking.ThreeSum.slow.Solution
 import org.junit.Test
+import pattern.ThreeSum.ThreeSum.slow.Solution
 
 class SolutionTest {
 
