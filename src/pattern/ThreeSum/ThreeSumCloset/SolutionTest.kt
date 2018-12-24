@@ -1,6 +1,7 @@
 package pattern.ThreeSum.ThreeSumCloset
 
 import org.junit.Test
+import pattern.ThreeSum.ThreeSumCloset.slow.Solution
 import kotlin.test.assertEquals
 
 
