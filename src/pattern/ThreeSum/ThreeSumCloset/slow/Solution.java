@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 超时
+ * slow 方法慢就慢在，他是全搜索，是暴力解法。不像那个 normal 解法，每次前进都是有方向的。
  */
 class Solution {
 
