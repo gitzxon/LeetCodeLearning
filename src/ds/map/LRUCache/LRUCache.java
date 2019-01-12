@@ -13,8 +13,7 @@ class LRUCache {
 
     int mCapacity;
     LinkedHashMap<Integer, Integer> linkedHashMap;
-
-
+    
     public LRUCache(int capacity) {
         this.mCapacity = capacity;
         linkedHashMap = new LinkedHashMap<Integer, Integer>(capacity, 0.75F, true) {
