@@ -1,21 +1,21 @@
 package ds.map.LRUCache;
 
 
-import java.util.*;
+import java.util.HashMap;
 
 
 class MyLRUCache {
 
-    int capacity;
-    HashMap<Integer, Integer> entryHashMap;
-    HashMap<Integer, DoubleLinkedList> positionHashMap;
-    DoubleLinkedList recentlyUsedEntryListHead = null;
-    DoubleLinkedList recentlyUsedEntryListTail = null;
+    private int capacity;
+    private HashMap<Integer, Integer> entryHashMap;
+    private HashMap<Integer, DoubleLinkedList> positionHashMap;
+    private DoubleLinkedList recentlyUsedEntryListHead = null;
+    private DoubleLinkedList recentlyUsedEntryListTail = null;
 
 
     public MyLRUCache(int capacity) {
         this.capacity = capacity;
-        entryHashMap = new HashMap();
+        entryHashMap = new HashMap<>();
         positionHashMap = new HashMap<>();
     }
 
