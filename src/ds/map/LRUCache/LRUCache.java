@@ -25,11 +25,7 @@ class LRUCache {
     }
 
     public int get(int key) {
-        if (mLinkedHashMap.containsKey(key)) {
-            return mLinkedHashMap.get(key);
-        } else {
-            return -1;
-        }
+        return mLinkedHashMap.getOrDefault(key, -1);
     }
 
     public void put(int key, int value) {
