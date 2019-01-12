@@ -1,8 +1,14 @@
 package ds.map.LRUCache;
 
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * 简单高效的实现。
+ * 基于 LinkedHashMap
+ * 添加一个 mCapacity 来控制 size。
+ */
 class LRUCache {
 
     int mCapacity;
