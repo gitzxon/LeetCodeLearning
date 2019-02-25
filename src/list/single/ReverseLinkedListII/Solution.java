@@ -2,6 +2,7 @@ package list.single.ReverseLinkedListII;
 
 import list.single.ListNode;
 
+// Note: 1 ≤ m ≤ n ≤ length of list.
 class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
 
