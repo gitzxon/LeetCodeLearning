@@ -1,4 +1,4 @@
-package array.Calendar;
+package array.MyCalendar.MyCalanderI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 /*
  * @lc app=leetcode id=729 lang=java
  *
- * [729] My Calendar I
+ * [729] My MyCalendar I
  */
-class MyCalendar {
+public class MyCalendar {
 
     List<Range> rangeList = new ArrayList<>();
 

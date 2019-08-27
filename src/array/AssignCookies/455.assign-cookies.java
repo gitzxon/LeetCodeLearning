@@ -1,3 +1,5 @@
+package array.AssignCookies;
+
 import java.util.Arrays;
 
 /*

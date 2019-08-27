@@ -1,13 +1,13 @@
-package array.Calendar;
+package array.MyCalendar.MyCalendarIUseingBinarySearch;
 
 import java.util.TreeMap;
 
 /*
  * @lc app=leetcode id=729 lang=java
  *
- * [729] My Calendar I
+ * [729] My MyCalendar I
  */
-class MyCalendarBinarySearch {
+public class MyCalendar {
 
     private TreeMap<Integer, Integer> map = new TreeMap<>(); // start -> end
 
