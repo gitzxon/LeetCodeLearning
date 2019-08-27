@@ -22,7 +22,7 @@ public class SolutionIteratively {
             }
 
             cur = stack.pop();
-            res.add(cur.val);
+            res.add(cur.value);
             cur = cur.right;
         }
         return res;
@@ -49,7 +49,7 @@ public class SolutionIteratively {
 
                 } else {
                     cur = stack.pop();
-                    resultContainer.add(cur.val);
+                    resultContainer.add(cur.value);
                     cur = cur.right;
                 }
             }

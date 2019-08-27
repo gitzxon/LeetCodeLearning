@@ -24,7 +24,7 @@ class Solution {
                 if (cur == null) {
                     continue;
                 }
-                sum += cur.val;
+                sum += cur.value;
                 if (cur.left != null) {
                     queue.add(cur.left);
                 }

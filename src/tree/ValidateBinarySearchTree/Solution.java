@@ -14,24 +14,24 @@ class Solution {
             return true;
         }
 
-        if (currentNode.left != null && currentNode.left.val >= currentNode.val) {
+        if (currentNode.left != null && currentNode.left.value >= currentNode.value) {
             return false;
         }
 
-        if (currentNode.right != null && currentNode.right.val <= currentNode.val) {
+        if (currentNode.right != null && currentNode.right.value <= currentNode.value) {
             return false;
         }
 
-        if (currentNode.val <= min) {
+        if (currentNode.value <= min) {
             return false;
         }
 
-        if (currentNode.val >= max) {
+        if (currentNode.value >= max) {
             return false;
         }
 
-        long newMin = Math.max(currentNode.val, min);
-        long newMax = Math.min(currentNode.val, max);
+        long newMin = Math.max(currentNode.value, min);
+        long newMax = Math.min(currentNode.value, max);
 
         boolean left = helper(currentNode.left, min, newMax);
         boolean right = helper(currentNode.right, newMin, max);

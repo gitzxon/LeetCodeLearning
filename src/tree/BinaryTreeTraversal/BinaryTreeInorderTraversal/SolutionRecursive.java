@@ -18,7 +18,7 @@ class SolutionRecursive {
             if (root.left != null) {
                 helper(resultContainer, root.left);
             }
-            resultContainer.add(root.val);
+            resultContainer.add(root.value);
             if(root.right != null) {
                 helper(resultContainer, root.right);
             }

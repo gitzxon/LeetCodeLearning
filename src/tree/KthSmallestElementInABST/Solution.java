@@ -46,7 +46,7 @@ class Solution {
             return 0;
         }
 
-        priorityQueue.add(root.val);
+        priorityQueue.add(root.value);
 
 
         if (root.right != null) {
