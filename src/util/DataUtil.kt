@@ -2,7 +2,15 @@ package util
 
 fun main(args: Array<String>) {
 
-    DataUtil().parse("[10,20],[50,60],[10,40],[5,15],[5,10],[25,55]")
+//    DataUtil().parse("[10,20],[50,60],[10,40],[5,15],[5,10],[25,55]")
+    DataUtil().parseMatrix("""
+                    [
+  ["1","0","1","0","0"],
+  ["1","0","1","1","1"],
+  ["1","1","1","1","1"],
+  ["1","0","0","1","0"]
+]
+    """.trimIndent(), 5)
 }
 
 class DataUtil {
@@ -26,5 +34,20 @@ class DataUtil {
         return split
     }
 
+    fun parseMatrix(input: String, colCount: Int): Array<Array<String>> {
+        val twoDimenList = input.split("[", "]", ",")
+                .filter { it.isNotEmpty() && it != "\n" && it.isNotBlank() }
+                .chunked(colCount)
+
+        val result = Array(twoDimenList.size) {
+            Array(colCount) { "0" }
+        }
+        twoDimenList.forEachIndexed { row, list ->
+            list.forEachIndexed { col, s ->
+                result[row][col] = s
+            }
+        }
+        return result
+    }
 
 }
