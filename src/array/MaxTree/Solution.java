@@ -2,7 +2,6 @@ package array.MaxTree;
 
 import tree.TreeNode;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -29,30 +28,8 @@ public class Solution {
         }
 
         Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < array.length; i++) {
-            while (!stack.isEmpty() && array[stack.peek()] < array[i]) {
-                popStackAndSetMap(stack, leftBigMap, allNodes);
-            }
-
-            stack.push(i);
-        }
-
-        while (!stack.isEmpty()) {
-            popStackAndSetMap(stack, leftBigMap, allNodes);
-        }
-
-
-        for (int i = treeNodesArray.length - 1; i >= 0; i--) {
-            while (!stack.isEmpty() && array[stack.peek()] < array[i]) {
-                popStackAndSetMap(stack, rightBigMap, allNodes);
-            }
-            stack.push(i);
-        }
-
-        while (!stack.isEmpty()) {
-            popStackAndSetMap(stack, rightBigMap, allNodes);
-        }
-
+        handleGenerateBigMap(true, array, treeNodesArray, leftBigMap, allNodes, stack);
+        handleGenerateBigMap(false, array, treeNodesArray, rightBigMap, allNodes, stack);
 
         TreeNode root = null;
 
@@ -87,6 +64,37 @@ public class Solution {
         return root;
     }
 
+    private void handleGenerateBigMap(boolean fori, int[] array, TreeNode[] treeNodesArray, Map<TreeNode, TreeNode> bigMap, Map<Integer, TreeNode> allNodes, Stack<Integer> stack) {
+        int start;
+        int end;
+        int step;
+        if (fori) {
+            start = 0;
+            end = treeNodesArray.length;
+            step = 1;
+        } else {
+            start = treeNodesArray.length - 1;
+            end = -1;
+            step = -1;
+        }
+
+        for (int i = start; i != end; i = i + step) {
+            handlePushStack(array, bigMap, allNodes, stack, i);
+        }
+
+        while (!stack.isEmpty()) {
+            popStackAndSetMap(stack, bigMap, allNodes);
+        }
+    }
+
+    private void handlePushStack(int[] array, Map<TreeNode, TreeNode> leftBigMap, Map<Integer, TreeNode> allNodes, Stack<Integer> stack, int i) {
+        while (!stack.isEmpty() && array[stack.peek()] < array[i]) {
+            popStackAndSetMap(stack, leftBigMap, allNodes);
+        }
+
+        stack.push(i);
+    }
+
     private void popStackAndSetMap(Stack<Integer> stack, Map<TreeNode, TreeNode> map, Map<Integer, TreeNode> allNodes) {
         if (stack.isEmpty()) {
             return;
@@ -100,29 +108,4 @@ public class Solution {
         }
     }
 
-    private void printMap(Map<TreeNode, TreeNode> map) {
-        System.out.println(Arrays.toString(map.entrySet().toArray()));
-    }
-
-    private void printTreeNode(TreeNode[] treeNodes) {
-        for (int i = 0; i < treeNodes.length; i++) {
-            TreeNode cur = treeNodes[i];
-            TreeNode left = cur.left;
-            TreeNode right = cur.right;
-            System.out.println("i = " + i);
-            System.out.println("cur.value = " + cur.value);
-            if (left != null) {
-                System.out.println("left.value = " + left.value);
-            } else {
-                System.out.println("left.value = null");
-            }
-
-            if (right != null) {
-                System.out.println("right.value = " + right.value);
-            } else {
-                System.out.println("right.value = null");
-            }
-
-        }
-    }
 }
