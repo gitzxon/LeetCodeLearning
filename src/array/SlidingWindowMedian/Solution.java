@@ -12,6 +12,8 @@ class Solution {
     TreeMap<Integer, Integer> smallMap = new TreeMap<>(Comparator.reverseOrder());
     TreeMap<Integer, Integer> bigMap = new TreeMap<>(Comparator.comparingInt(o -> o));
 
+    Double median = null;
+
     public double[] medianSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length == 0) {
             return new double[0];
@@ -24,7 +26,8 @@ class Solution {
             divideNumsIntoTwoMap();
         }
         List<Double> result = new ArrayList<>();
-        result.add(getMedian());
+        median = getMedian();
+        result.add(median);
 
         while (idx <= nums.length - 1) {
             int num = nums[idx];
@@ -38,7 +41,8 @@ class Solution {
             }
 
             divideNumsIntoTwoMap();
-            result.add(getMedian());
+            median = getMedian();
+            result.add(median);
         }
 
         double[] resultArray = new double[result.size()];
@@ -52,13 +56,8 @@ class Solution {
         if (getSize(bigMap) - getSize(smallMap) >= 2) {
             Map.Entry<Integer, Integer> entry = bigMap.firstEntry();
 
-            if (entry.getValue() == 1) {
-                bigMap.remove(entry.getKey());
-            } else {
-                bigMap.put(entry.getKey(), entry.getValue() - 1);
-            }
-
-            smallMap.put(entry.getKey(), smallMap.getOrDefault(entry.getKey(), 0) + 1);
+            removeOneFromMap(bigMap, entry.getKey());
+            addOneIntoMap(smallMap, entry.getKey());
         }
         if (!bigMap.isEmpty() && !smallMap.isEmpty() && bigMap.firstEntry().getKey() < smallMap.firstEntry().getKey()) {
             Map.Entry<Integer, Integer> bigEntry = bigMap.firstEntry();
@@ -79,10 +78,20 @@ class Solution {
         } else {
             map.put(key, value - 1);
         }
+        if (map == bigMap) {
+            bigCount--;
+        } else {
+            smallCount--;
+        }
     }
 
     private void addOneIntoMap(Map<Integer, Integer> map, Integer key) {
         map.put(key, map.getOrDefault(key, 0) + 1);
+        if (map == bigMap) {
+            bigCount++;
+        } else {
+            smallCount++;
+        }
     }
 
     private double getMedian() {
@@ -103,11 +112,14 @@ class Solution {
         }
     }
 
+    private int bigCount = 0;
+    private int smallCount = 0;
+
     private int getSize(Map<Integer, Integer> map) {
-        int count = 0;
-        for (Integer integer : map.keySet()) {
-            count += map.get(integer);
+        if (map == bigMap) {
+            return bigCount;
+        } else {
+            return smallCount;
         }
-        return count;
     }
 }
