@@ -24,5 +24,4 @@ public class Solution2 {
         }
         return end - start;
     }
-
 }
