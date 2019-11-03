@@ -19,7 +19,7 @@ public class SolutionIteratively {
 
                 if (cur != null) {
 
-                    resultContainer.add(cur.value);
+                    resultContainer.add(cur.val);
                     if (cur.right != null) stack.push(cur.right);
                     cur = cur.left;
 

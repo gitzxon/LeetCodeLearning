@@ -22,11 +22,11 @@ class Solution {
             return;
         }
 
-        if (root.value >= mMin && root.value <= mMax) {
-            mSum += root.value;
+        if (root.val >= mMin && root.val <= mMax) {
+            mSum += root.val;
             performDFS(root.left);
             performDFS(root.right);
-        } else if (root.value < mMin) {
+        } else if (root.val < mMin) {
             performDFS(root.right);
         } else { //root.val > mMax
             performDFS(root.left);

@@ -20,7 +20,7 @@ public class SolutionSummary {
 
             if (cur != null) {
 
-                resultContainer.add(cur.value);
+                resultContainer.add(cur.val);
                 stack.push(cur.right);
                 cur = cur.left;
 
@@ -48,7 +48,7 @@ public class SolutionSummary {
 
             } else {
                 cur = stack.pop();
-                resultContainer.add(cur.value);
+                resultContainer.add(cur.val);
                 cur = cur.right;
             }
         }
@@ -67,7 +67,7 @@ public class SolutionSummary {
 
             if (cur != null) {
 
-                resultContainer.addFirst(cur.value);
+                resultContainer.addFirst(cur.val);
                 stack.push(cur.left);
                 cur = cur.right;
 

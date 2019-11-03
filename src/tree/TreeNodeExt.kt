@@ -17,7 +17,7 @@ public fun TreeNode?.toList(): List<String> {
     queue.offer(this)
     while (queue.size != 0) {
         val treeNode = queue.poll()
-        result.add(treeNode?.value?.toString() ?: "null")
+        result.add(treeNode?.`val`?.toString() ?: "null")
         if (treeNode != null) {
             if (treeNode.left != null || treeNode.right != null) {
                 queue.offer(treeNode.left)

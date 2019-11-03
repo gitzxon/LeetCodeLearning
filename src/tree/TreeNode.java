@@ -2,18 +2,18 @@ package tree;
 
 
 public class TreeNode {
-    public int value;
+    public int val;
     public TreeNode left;
     public TreeNode right;
 
     public TreeNode(int x) {
-        value = x;
+        val = x;
     }
 
     @Override
     public String toString() {
         return "TreeNode{" +
-                "value=" + value +
+                "value=" + val +
                 ", left=" + left +
                 ", right=" + right +
                 '}';

@@ -43,7 +43,7 @@ public class Solution {
             } else if (right == null) {
                 smaller = left;
             } else {
-                if (left.value <= right.value) {
+                if (left.val <= right.val) {
                     smaller = left;
                 } else {
                     smaller = right;

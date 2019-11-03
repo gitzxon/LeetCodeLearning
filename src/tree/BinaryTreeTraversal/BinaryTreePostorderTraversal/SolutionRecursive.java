@@ -24,7 +24,7 @@ public class SolutionRecursive {
                 helper(resultContainer, root.right);
             }
 
-            resultContainer.add(root.value);
+            resultContainer.add(root.val);
 
             return resultContainer;
         }

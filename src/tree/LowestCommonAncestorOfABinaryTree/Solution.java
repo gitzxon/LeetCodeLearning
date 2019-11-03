@@ -22,7 +22,7 @@ class Solution {
             i += 1;
         }
 
-        System.out.println("pre.val = " + pre.value);
+        System.out.println("pre.val = " + pre.val);
         return pre;
     }
 
