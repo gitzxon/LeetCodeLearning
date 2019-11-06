@@ -2,6 +2,9 @@ package tree.FlaternBinaryTreeToLinkedList;
 
 import tree.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -12,7 +15,31 @@ import tree.TreeNode;
  * }
  */
 class Solution {
-    public void flatten(TreeNode root) {
 
+    public void flatten(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        performPreorderTraversal(root, queue);
+
+        TreeNode cur = null;
+        while (queue.size() != 0) {
+            if (cur == null) {
+                cur = queue.poll();
+            } else {
+                cur.left = null;
+                cur.right = queue.poll();
+                cur = cur.right;
+            }
+        }
     }
+
+    private void performPreorderTraversal(TreeNode root, Queue<TreeNode> list) {
+        if (root == null) {
+            return;
+        }
+
+        list.offer(root);
+        performPreorderTraversal(root.left, list);
+        performPreorderTraversal(root.right, list);
+    }
+
 }
