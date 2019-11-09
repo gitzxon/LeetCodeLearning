@@ -1,4 +1,4 @@
-package tree.PathSumIII
+package tree.PathSum.III
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
