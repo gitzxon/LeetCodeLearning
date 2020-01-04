@@ -25,25 +25,32 @@ public class SolutionNew {
             dp[i][0] = 0;
         }
         for (int k = 1; k < rowCount; k++) {
+            int backup = Integer.MIN_VALUE;
             for (int i = 1; i < colCount; i++) {
 
                 int a = dp[k][i - 1];
                 int b = Integer.MIN_VALUE;
-                for (int j = 0; j < i; j++) {
-                    int price = prices[i] - prices[j];
-                    int pre = 0;
-                    if (j != 0) {
-                        pre = dp[k - 1] [j - 1];
-                    }
-                    b = Math.max(b, price + pre);
+
+                // 观察每次循环 j 的时候的计算的值，发现，如果把 dp[k - 1][i - 2] - prices[i - 1] 缓存下来，就可以减少一层循环。
+                // i == 1 的 case 是为了兼容 dp[k - 1][i - 2]
+                if (i == 1) {
+                    backup = -prices[0];
+                } else {
+                    backup = Math.max(
+                            backup,
+                            dp[k - 1][i - 2] - prices[i - 1]
+                    );
                 }
+
+                b = Math.max(
+                        b,
+                        prices[i] + backup
+                );
+
                 dp[k][i] = Math.max(a, b);
             }
         }
 
         return dp[rowCount - 1][colCount - 1];
-
-
     }
-
 }
