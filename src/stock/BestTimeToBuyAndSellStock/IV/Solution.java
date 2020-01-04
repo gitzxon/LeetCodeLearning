@@ -20,7 +20,7 @@ class Solution {
         int[] max = new int[transactionCount + 1];
         int[] maxSellAtLastDay = new int[transactionCount + 1];
         for (int i = 1; i < prices.length; i++) {
-            int diff = prices[i] - prices[ i -1];
+            int diff = prices[i] - prices[i - 1];
             int tmp = max[0];
             for (int j = 1; j <= transactionCount; j++) {
                 maxSellAtLastDay[j] = Math.max(maxSellAtLastDay[j], tmp) + diff;
