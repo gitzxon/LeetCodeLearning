@@ -1,8 +1,8 @@
 package array.LongestIncreasingSubsequence;
 
 /**
- * write lis myself
- * todo: need to change the while loop to binary search.
+ * write lis myself.
+ * and use a simple binary search to find the correct index to replace.
  */
 public class SolutionMy {
 
@@ -21,17 +21,24 @@ public class SolutionMy {
                 smallestEnd[curLen] = nums[i];
                 curLen += 1;
             } else {
-                int j = curLen - 2;
-                while (j >= 0) {
-                    if (smallestEnd[j] < nums[i]) {
-                        smallestEnd[j + 1] = nums[i];
-                        break;
-                    }
-                    j--;
-                }
+                smallestEnd[binarySearch(smallestEnd, 0, curLen, nums[i])] = nums[i];
             }
         }
         return curLen;
+    }
+
+    private int binarySearch(int[] smallestEnd, int start, int end, int num) {
+        while (start <= end) {
+            int mid = (start + end) >>> 1;
+            if (smallestEnd[mid] == num) {
+                return mid;
+            } else if (smallestEnd[mid] > num) {
+                end = mid - 1;
+            } else if (smallestEnd[mid] < num) {
+                start = mid + 1;
+            }
+        }
+        return start;
     }
 
 }
