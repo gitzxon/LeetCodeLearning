@@ -1,12 +1,34 @@
 import org.junit.Test
-
-import org.junit.Assert.*
+import java.util.concurrent.Exchanger
 
 /**
  * playground,
  * 用来处理数据。
  */
 class MainTest {
+
+    @Test
+    fun testExchanger() {
+
+        val exchanger = Exchanger<String>()
+        
+        Thread {
+            val resultB = "resultFrom thread B"
+            println("threadB wait for thread A")
+            val resultA = exchanger.exchange(resultB)
+            println("in thread B, get result from thread A : $resultA" )
+        }.start()
+
+        try {
+            val resultA = "result from thread A"
+            println("thread A wait for thread B")
+            val resultB = exchanger.exchange(resultA)
+            println("in thread A, get result from thread B : $resultB" )
+        } catch (e: Exception) {
+
+        }
+
+    }
 
     @Test
     fun main() {
