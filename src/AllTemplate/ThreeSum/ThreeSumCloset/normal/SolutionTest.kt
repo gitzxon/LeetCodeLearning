@@ -1,4 +1,4 @@
-package pattern.ThreeSum.ThreeSumCloset.normal
+package AllTemplate.ThreeSum.ThreeSumCloset.normal
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

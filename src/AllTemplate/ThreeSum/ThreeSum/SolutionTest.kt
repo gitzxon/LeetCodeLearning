@@ -1,7 +1,7 @@
-package pattern.ThreeSum.ThreeSum
+package AllTemplate.ThreeSum.ThreeSum
 
+import AllTemplate.ThreeSum.ThreeSum.slow.Solution
 import org.junit.Test
-import pattern.ThreeSum.ThreeSum.slow.Solution
 
 class SolutionTest {
 

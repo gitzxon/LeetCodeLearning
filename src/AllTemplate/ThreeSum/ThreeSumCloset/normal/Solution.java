@@ -1,4 +1,4 @@
-package pattern.ThreeSum.ThreeSumCloset.normal;
+package AllTemplate.ThreeSum.ThreeSumCloset.normal;
 
 import java.util.Arrays;
 

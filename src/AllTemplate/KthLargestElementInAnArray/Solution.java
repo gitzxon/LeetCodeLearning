@@ -21,6 +21,7 @@ class Solution {
                 lo = p + 1;
             }
         }
+
         return nums[lo];
     }
 

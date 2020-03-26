@@ -1,4 +1,4 @@
-package pattern.ThreeSum.ThreeSumCloset.slow;
+package AllTemplate.ThreeSum.ThreeSumCloset.slow;
 
 import java.util.ArrayList;
 import java.util.List;
