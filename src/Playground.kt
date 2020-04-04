@@ -16,4 +16,5 @@ class Playground {
         lambda.invoke(result)
         return result
     }
+
 }
