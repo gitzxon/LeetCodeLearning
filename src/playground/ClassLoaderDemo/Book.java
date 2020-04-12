@@ -13,8 +13,6 @@ package playground.ClassLoaderDemo;
 // 书的静态代码块
 // amount = 112
 // 书的静态方法
-
-
 public class Book {
     public static void main(String[] args)
     {
