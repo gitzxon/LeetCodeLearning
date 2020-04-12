@@ -1,4 +1,4 @@
-package util
+package playground.InterfaceWithDefaultMethod
 
 interface TestInterface {
     fun method1() {
