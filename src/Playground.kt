@@ -4,7 +4,11 @@ class Playground {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            Playground().main1(arrayOf())
+            println("${0b1111}%16 = ${0b1111 % 16}")
+            println("${0b11111}%16 = ${0b11111 % 16}")
+            println("${0b111111}%16 = ${0b111111 % 16}")
+            println("${0b1111111}%16 = ${0b1111111 % 16}")
+//            Playground().main1(arrayOf())
         }
     }
 
